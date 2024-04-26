@@ -1,5 +1,9 @@
 const api = require("./api.service");
-const { sendWaterQualityData } = require("./lib/firebase");
+const {
+  sendWaterQualityData,
+  fetchKeyFromCollection,
+  fetchTimeStampFromCollection,
+} = require("./lib/firebase");
 
 //  v0: ph
 //  v1: flow rate
@@ -41,6 +45,9 @@ const runServer = async () => {
   }, 10000);
 };
 
+fetchKeyFromCollection("ph");
+fetchTimeStampFromCollection();
+// fetchDocumentNames();
 runServer();
 
 // const {

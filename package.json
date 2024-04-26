@@ -10,10 +10,10 @@
     "start": "node server.js",
     "test": "nodemon server.js"
   },
-  "name": "node-js-practice",
+  "name": "capstone-server",
   "version": "1.0.0",
   "main": "server.js",
   "author": "arlu",
   "license": "ISC",
-  "description": ""
+  "description": "Capstone Server created with Node.js, Express.js, and Firebase."
 }

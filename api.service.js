@@ -5,23 +5,33 @@ const getAllUrl = "https://sgp1.blynk.cloud/external/api/getAll";
 const token = "sSHMEXk1Jv-4tmmlc3xS37ANZqtRgx_t";
 
 const fetchAll = async () => {
-  const response = await axios.get(getAllUrl, {
-    params: {
-      token: token,
-    },
-  });
-  console.log(response.data);
-  return await response.data;
+  console.log("Fetching all Data...");
+  try {
+    const response = await axios.get(getAllUrl, {
+      params: {
+        token: token,
+      },
+    });
+    console.log(response.data);
+    return await response.data;
+  } catch (err) {
+    console.log("error fetching All Data:", err);
+  }
 };
 
 const fetchStatus = async () => {
-  const response = await axios.get(statusUrl, {
-    params: {
-      token: token,
-    },
-  });
-  console.log(response.data);
-  return await response.data;
+  console.log("Fetching status...");
+  try {
+    const response = await axios.get(statusUrl, {
+      params: {
+        token: token,
+      },
+    });
+    console.log("device online:", response.data);
+    return await response.data;
+  } catch (err) {
+    console.log("error fetching status:", err);
+  }
 };
 
 const sendToDatabase = async () => {

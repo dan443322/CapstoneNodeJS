@@ -3,6 +3,7 @@ const {
   sendWaterQualityData,
   fetchKeyFromCollection,
   fetchTimeStampFromCollection,
+  fetchTotalWaterFromCollection,
 } = require("./lib/firebase");
 
 //  v0: ph
@@ -47,6 +48,7 @@ const runServer = async () => {
 
 fetchKeyFromCollection("ph");
 fetchTimeStampFromCollection();
+fetchTotalWaterFromCollection();
 // fetchDocumentNames();
 runServer();
 

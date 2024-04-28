@@ -20,7 +20,7 @@ const fetchAll = async () => {
 };
 
 const fetchStatus = async () => {
-  console.log("Fetching status...");
+  console.log("Fetching device status...");
   try {
     const response = await axios.get(statusUrl, {
       params: {

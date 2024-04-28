@@ -1,15 +1,14 @@
 const api = require("./api.service");
 const {
   sendWaterQualityData,
-  fetchKeyFromCollection,
-  fetchTimeStampFromCollection,
-  fetchTotalWaterFromCollection,
+  fetchAllDocsAndAverage,
 } = require("./lib/firebase");
+
+let blynkIntervalId;
 
 //  v0: ph
 //  v1: flow rate
 //  v2: turbidity
-//  v3: Water Level
 //  v4: Total Volume
 //  v5: Temperature
 //  v9: Switch
@@ -28,14 +27,12 @@ const blynkToFireStore = async () => {
   }
 };
 
-let blynkIntervalId;
-
 const runServer = async () => {
   setInterval(async () => {
     const status = await api.fetchStatus();
     if (status) {
       if (!blynkIntervalId) {
-        blynkIntervalId = setInterval(blynkToFireStore, 5000);
+        blynkIntervalId = setInterval(blynkToFireStore, 60 * 1000);
       }
     } else {
       if (blynkIntervalId) {
@@ -46,45 +43,11 @@ const runServer = async () => {
   }, 10000);
 };
 
-fetchKeyFromCollection("ph");
-fetchTimeStampFromCollection();
-fetchTotalWaterFromCollection();
-// fetchDocumentNames();
-runServer();
+console.log("Starting server...");
+fetchAllDocsAndAverage();
 
-// const {
-//   uploadProcessedData,
-//   initializeFirebaseApp,
-// } = require("./lib/firebase");
+setTimeout(() => {
+  runServer();
+}, 2000);
 
-// initializeFirebaseApp();
-
-// phRef.get().then((doc) => {
-//   if (doc.exists) {
-//     console.log("Document data:", doc.data());
-//   } else {
-//     console.log("No such document!");
-//   }
-// });
-
-// phRef
-//   .set({
-//     ph: 0.5,
-//     time: new Date(),
-//   })
-//   .then((doc) => {
-//     console.log("Document written with ID: ", doc.id);
-//   });
-
-// const firestoreTest = async () => {
-//   try {
-//     await uploadProcessedData();
-//     return "Data uploaded successfully";
-//   } catch (error) {
-//     console.error("Error sending data to Firestore:", error);
-//   }
-// };
-
-// firestoreTest();
-
-// setInterval(fetchData, 5000);
+setInterval(fetchAllDocsAndAverage, 60 * 60 * 1000);

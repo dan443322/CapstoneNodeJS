@@ -1,7 +1,10 @@
+require("dotenv").config();
 const api = require("./api.service");
 const {
   sendWaterQualityData,
   fetchAllDocsAndAverage,
+  sendTotalWater,
+  fetchAndTotalWater,
 } = require("./lib/firebase");
 
 let blynkIntervalId;
@@ -14,25 +17,29 @@ let blynkIntervalId;
 //  v9: Switch
 
 const blynkToFireStore = async () => {
+  let time = new Date().toISOString();
   try {
     const blynkResponse = await api.fetchAll();
-    await sendWaterQualityData({
-      ph: blynkResponse.v0,
-      turbidity: blynkResponse.v2,
-      totalVolume: blynkResponse.v4,
-      temperature: blynkResponse.v5,
-    });
+    await sendWaterQualityData(
+      {
+        ph: blynkResponse.v0,
+        turbidity: blynkResponse.v2,
+        temperature: blynkResponse.v5,
+      },
+      time
+    );
+    await sendTotalWater(blynkResponse.v4, time);
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 };
 
-const runServer = async () => {
+const runServer = () => {
   setInterval(async () => {
     const status = await api.fetchStatus();
-    if (status) {
+    if (!status) {
       if (!blynkIntervalId) {
-        blynkIntervalId = setInterval(blynkToFireStore, 60 * 1000);
+        blynkIntervalId = setInterval(blynkToFireStore, 6 * 1000);
       }
     } else {
       if (blynkIntervalId) {
@@ -42,12 +49,15 @@ const runServer = async () => {
     }
   }, 10000);
 };
-
 console.log("Starting server...");
-fetchAllDocsAndAverage();
+// fetchAllDocsAndAverage();
 
 setTimeout(() => {
   runServer();
+  setInterval(() => {
+    fetchAllDocsAndAverage();
+    fetchAndTotalWater();
+  }, 60 * 60 * 1000);
 }, 2000);
 
-setInterval(fetchAllDocsAndAverage, 60 * 60 * 1000);
+// setInterval(fetchAllDocsAndAverage, 60 * 60 * 1000);

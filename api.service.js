@@ -2,7 +2,7 @@ const axios = require("axios");
 
 const statusUrl = "https://sgp1.blynk.cloud/external/api/isHardwareConnected";
 const getAllUrl = "https://sgp1.blynk.cloud/external/api/getAll";
-const token = "sSHMEXk1Jv-4tmmlc3xS37ANZqtRgx_t";
+const token = process.env.BLYNK_API_KEY;
 
 const fetchAll = async () => {
   console.log("Fetching all Data...");

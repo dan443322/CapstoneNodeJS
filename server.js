@@ -7,8 +7,6 @@ const {
   fetchAndTotalWater,
 } = require("./lib/firebase");
 
-let blynkIntervalId;
-
 //  v0: ph
 //  v1: flow rate
 //  v2: turbidity
@@ -34,9 +32,14 @@ const blynkToFireStore = async () => {
   }
 };
 
+let blynkIntervalId;
+
+// Dont forget to remove one character around here during actual implementation
+// status: not removed
 const runServer = () => {
   setInterval(async () => {
     const status = await api.fetchStatus();
+
     if (!status) {
       if (!blynkIntervalId) {
         blynkIntervalId = setInterval(blynkToFireStore, 6 * 1000);
@@ -50,14 +53,12 @@ const runServer = () => {
   }, 10000);
 };
 console.log("Starting server...");
-// fetchAllDocsAndAverage();
 
 setTimeout(() => {
+  console.log("Server running");
   runServer();
   setInterval(() => {
     fetchAllDocsAndAverage();
     fetchAndTotalWater();
   }, 60 * 60 * 1000);
 }, 2000);
-
-// setInterval(fetchAllDocsAndAverage, 60 * 60 * 1000);

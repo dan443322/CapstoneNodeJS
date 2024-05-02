@@ -26,7 +26,7 @@ const blynkToFireStore = async () => {
       },
       time
     );
-    await sendTotalWater(blynkResponse.v4, time);
+    await sendTotalWater({ waterValue: blynkResponse.v4 }, time);
   } catch (error) {
     console.error("Error fetching data:", error);
   }
@@ -42,7 +42,7 @@ const runServer = () => {
 
     if (!status) {
       if (!blynkIntervalId) {
-        blynkIntervalId = setInterval(blynkToFireStore, 6 * 1000);
+        blynkIntervalId = setInterval(blynkToFireStore, 60 * 1000);
       }
     } else {
       if (blynkIntervalId) {
@@ -62,3 +62,5 @@ setTimeout(() => {
     fetchAndTotalWater();
   }, 60 * 60 * 1000);
 }, 2000);
+// fetchAndTotalWater();
+// fetchAllDocsAndAverage();

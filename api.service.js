@@ -12,7 +12,7 @@ const fetchAll = async () => {
         token: token,
       },
     });
-    console.log(response.data);
+    // console.log(response.data);
     return await response.data;
   } catch (err) {
     console.log("error fetching All Data:", err);

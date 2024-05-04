@@ -35,12 +35,12 @@ const blynkToFireStore = async () => {
 let blynkIntervalId;
 
 // Dont forget to remove one character around here during actual implementation
-// status: not removed
+// status: removed
 const runServer = () => {
   setInterval(async () => {
     const status = await api.fetchStatus();
 
-    if (!status) {
+    if (status) {
       if (!blynkIntervalId) {
         blynkIntervalId = setInterval(blynkToFireStore, 60 * 1000);
       }

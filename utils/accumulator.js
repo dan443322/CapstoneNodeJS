@@ -29,6 +29,7 @@ const filterAndAccumulate = (keyName, docs) => {
 
   totalVolume = filteredValues.reduce((a, b) => a + b, 0);
   return totalVolume.toFixed(2);
+  // return filteredValues;
 };
 
 module.exports = filterAndAccumulate;

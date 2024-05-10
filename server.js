@@ -14,6 +14,16 @@ const {
 //  v5: Temperature
 //  v9: Switch
 
+// v0: ph
+// v1: flow rate
+// v2: turbidity
+// v3: water level
+// v4: total volume
+// v5: Temperature
+// v6: isAutoSwitch
+// v7: TotalVolumeResetPin
+// v9: Solenoid Valve State
+
 const blynkToFireStore = async () => {
   let time = new Date().toISOString();
   try {
@@ -62,5 +72,5 @@ setTimeout(() => {
     fetchAndTotalWater();
   }, 60 * 60 * 1000);
 }, 2000);
-// fetchAndTotalWater();
+fetchAndTotalWater();
 // fetchAllDocsAndAverage();

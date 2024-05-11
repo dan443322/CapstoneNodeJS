@@ -72,5 +72,5 @@ setTimeout(() => {
     fetchAndTotalWater();
   }, 60 * 60 * 1000);
 }, 2000);
-fetchAndTotalWater();
+// fetchAndTotalWater();
 // fetchAllDocsAndAverage();

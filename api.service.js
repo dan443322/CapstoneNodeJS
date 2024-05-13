@@ -49,8 +49,4 @@ const fetchStatus = async () => {
   }
 };
 
-const sendToDatabase = async () => {
-  fetchAll();
-};
-
 module.exports = { fetchAll, fetchStatus, resetTotalVolume };

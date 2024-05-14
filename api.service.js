@@ -10,7 +10,7 @@ const resetTotalVolume = async () => {
       params: {
         token: token,
         pin: "V7",
-        value: 1,
+        value: 0,
       },
     });
     console.log("Total Water Value Reset Successfully");

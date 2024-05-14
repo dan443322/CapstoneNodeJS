@@ -7,13 +7,6 @@ const {
   fetchAndTotalWater,
 } = require("./lib/firebase");
 
-//  v0: ph
-//  v1: flow rate
-//  v2: turbidity
-//  v4: Total Volume
-//  v5: Temperature
-//  v9: Switch
-
 // v0: ph
 // v1: flow rate
 // v2: turbidity

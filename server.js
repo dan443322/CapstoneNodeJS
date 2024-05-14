@@ -3,7 +3,7 @@ const api = require("./api.service");
 const {
   sendWaterQualityData,
   fetchAllDocsAndAverage,
-  sendTotalWater,
+  sendRealTimeWater,
   fetchAndTotalWater,
 } = require("./lib/firebase");
 
@@ -26,7 +26,7 @@ const blynkToFireStore = async () => {
       },
       time
     );
-    await sendTotalWater({ waterValue: blynkResponse.v4 }, time);
+    await sendRealTimeWater({ waterValue: blynkResponse.v4 }, time);
   } catch (error) {
     console.error("Error fetching data:", error);
   }

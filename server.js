@@ -3,16 +3,9 @@ const api = require("./api.service");
 const {
   sendWaterQualityData,
   fetchAllDocsAndAverage,
-  sendTotalWater,
+  sendRealTimeWater,
   fetchAndTotalWater,
 } = require("./lib/firebase");
-
-//  v0: ph
-//  v1: flow rate
-//  v2: turbidity
-//  v4: Total Volume
-//  v5: Temperature
-//  v9: Switch
 
 // v0: ph
 // v1: flow rate
@@ -36,7 +29,7 @@ const blynkToFireStore = async () => {
       },
       time
     );
-    await sendTotalWater({ waterValue: blynkResponse.v4 }, time);
+    await sendRealTimeWater({ waterValue: blynkResponse.v4 }, time);
   } catch (error) {
     console.error("Error fetching data:", error);
   }
@@ -44,8 +37,6 @@ const blynkToFireStore = async () => {
 
 let blynkIntervalId;
 
-// Dont forget to remove one character around here during actual implementation
-// status: removed
 const runServer = () => {
   setInterval(async () => {
     const status = await api.fetchStatus();
@@ -72,5 +63,3 @@ setTimeout(() => {
     fetchAndTotalWater();
   }, 60 * 60 * 1000);
 }, 2000);
-// fetchAndTotalWater();
-// fetchAllDocsAndAverage();

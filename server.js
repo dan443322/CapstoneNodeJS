@@ -1,3 +1,6 @@
+// Visit https://github.com/dan443322/CapstoneNodeJS.git for a more structured version of this code
+// including the more detailed folder structure
+
 require("dotenv").config();
 const api = require("./api.service");
 const {
@@ -37,8 +40,6 @@ const blynkToFireStore = async () => {
 
 let blynkIntervalId;
 
-// Dont forget to remove one character around here during actual implementation
-// status: removed
 const runServer = () => {
   setInterval(async () => {
     const status = await api.fetchStatus();
@@ -65,5 +66,3 @@ setTimeout(() => {
     fetchAndTotalWater();
   }, 60 * 60 * 1000);
 }, 2000);
-// fetchAndTotalWater();
-// fetchAllDocsAndAverage();

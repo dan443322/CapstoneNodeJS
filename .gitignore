@@ -127,3 +127,9 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+
+# Admin DB
+hydrosync-firebase-adminsdk.json
+capstone-project-97f09-firebase-adminsdk.json
+service-account.json
